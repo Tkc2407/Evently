@@ -47,11 +47,11 @@ export default async function Home({ searchParams }: SearchParamProps) {
         <h2 className="h2-bold">Trust by <br /> Thousands of Events</h2>
 
         <div className="flex w-full flex-col gap-5 md:flex-row">
-          <Search />
-          <CategoryFilter />
+          {/* <Search />
+          <CategoryFilter /> */}
         </div>
 
-        <Collection 
+        {/* <Collection 
           data={events?.data}
           emptyTitle="No Events Found"
           emptyStateSubtext="Come back later"
@@ -59,7 +59,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
           limit={6}
           page={page}
           totalPages={events?.totalPages}
-        />
+        /> */}
       </section>
     </>
   )
