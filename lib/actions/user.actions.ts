@@ -59,7 +59,7 @@ export async function deleteUser(clerkId: string) {
     }
 
     // Unlink relationships
-    await Promise.all([
+    await Promise.all([  
       // Update the 'events' collection to remove references to the user
       Event.updateMany(
         { _id: { $in: userToDelete.events } },
@@ -67,7 +67,9 @@ export async function deleteUser(clerkId: string) {
       ),
 
       // Update the 'orders' collection to remove references to the user
-      Order.updateMany({ _id: { $in: userToDelete.orders } }, { $unset: { buyer: 1 } }),
+      Order.updateMany(
+        { _id: { $in: userToDelete.orders } },
+        { $unset: { buyer: 1 } }),
     ])
 
     // Delete user
