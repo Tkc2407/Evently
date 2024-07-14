@@ -11,8 +11,8 @@ import { handleError } from "@/lib/utils";
 import { CreateUserParams, UpdateUserParams } from "@/types";
 
 export async function createUser(user: CreateUserParams) {
-  console.log("create user called");
   try {
+    console.log("user.actions.ts: line 15");
     await connectToDatabase();
 
     const newUser = await User.create(user);

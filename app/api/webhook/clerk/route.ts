@@ -5,6 +5,8 @@ import { createUser, deleteUser, updateUser } from "@/lib/actions/user.actions";
 import { clerkClient } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
+console.log("route.ts:line 8 ENTERED WEBHOOK!!!!!");
+
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the endpoint
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
@@ -68,6 +70,8 @@ export async function POST(req: Request) {
       lastName: last_name,
       photo: image_url,
     };
+
+     console.log("User created!!");
 
     const newUser = await createUser(user);
 
