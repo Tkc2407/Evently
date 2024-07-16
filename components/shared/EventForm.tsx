@@ -166,7 +166,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
               </FormItem>
             )}
           />
-          {/* <FormField
+          <FormField
             control={form.control}
             name="imageUrl"
             render={({ field }) => (
@@ -354,14 +354,14 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                 <FormMessage />
               </FormItem>
             )}
-          /> */}
+          />
         </div>
 
         <Button
           type="submit"
           size="lg"
           disabled={form.formState.isSubmitting}
-          className="button col-span-2 w-full"
+          className="button w-full"
         >
           {form.formState.isSubmitting ? "Submitting..." : `${type} Event `}
         </Button>
