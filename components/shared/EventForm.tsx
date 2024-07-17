@@ -27,7 +27,7 @@ import { useUploadThing } from "@/lib/uploadthing";
 import "react-datepicker/dist/react-datepicker.css";
 import { Checkbox } from "../ui/checkbox";
 import { useRouter } from "next/navigation";
-import { createEvent, updateEvent } from "@/lib/actions/event.actions";
+import { createEvent } from "@/lib/actions/event.actions";
 import { IEvent } from "@/lib/database/models/event.model";
 
 type EventFormProps = {
@@ -47,9 +47,10 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
           endDateTime: new Date(event.endDateTime),
         }
       : eventDefaultValues;
-  // const router = useRouter();
+      
+  const router = useRouter();
 
-  // const { startUpload } = useUploadThing("imageUploader");
+  const { startUpload } = useUploadThing("imageUploader");
 
   const form = useForm<z.infer<typeof eventFormSchema>>({
     resolver: zodResolver(eventFormSchema),
@@ -57,34 +58,36 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
   });
 
   async function onSubmit(values: z.infer<typeof eventFormSchema>) {
-    // let uploadedImageUrl = values.imageUrl;
+    let uploadedImageUrl = values.imageUrl;
 
-    // if (files.length > 0) {
-    //   const uploadedImages = await startUpload(files);
+    if (files.length > 0) {
 
-    //   if (!uploadedImages) {
-    //     return;
-    //   }
+      // image is being uploaded to uploadthing server
+      const uploadedImages = await startUpload(files);
 
-    //   uploadedImageUrl = uploadedImages[0].url;
-    // }
+      if (!uploadedImages) {
+        return;
+      }
 
-    // if (type === "Create") {
-    //   try {
-    //     const newEvent = await createEvent({
-    //       event: { ...values, imageUrl: uploadedImageUrl },
-    //       userId,
-    //       path: "/profile",
-    //     });
+      uploadedImageUrl = uploadedImages[0].url;
+    }
 
-    //     if (newEvent) {
-    //       form.reset();
-    //       router.push(`/events/${newEvent._id}`);
-    //     }
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // }
+    if (type === "Create") {
+      try {
+        const newEvent = await createEvent({
+          event: { ...values, imageUrl: uploadedImageUrl },
+          userId,
+          path: "/profile",
+        });
+
+        if (newEvent) {
+          form.reset();
+          router.push(`/events/${newEvent._id}`);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
     // if (type === "Update") {
     //   if (!eventId) {
