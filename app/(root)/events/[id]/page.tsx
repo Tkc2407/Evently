@@ -4,6 +4,7 @@ import { getEventById, getRelatedEventsByCategory } from "@/lib/actions/event.ac
 import { formatDateTime } from "@/lib/utils";
 import { SearchParamProps } from "@/types";
 import Image from "next/image";
+import Link from "next/link";
 
 const EventDetails = async ({
   params: { id },
@@ -52,7 +53,7 @@ const EventDetails = async ({
               </div>
             </div>
 
-            {/* <CheckoutButton event={event} /> */}
+            <CheckoutButton event={event} />
 
             <div className="flex flex-col gap-5">
               <div className="flex gap-2 md:gap-3">
@@ -64,12 +65,14 @@ const EventDetails = async ({
                 />
                 <div className="p-medium-16 lg:p-regular-20 flex flex-wrap items-center">
                   <p>
-                    {formatDateTime(event.startDateTime).dateOnly} - {formatDateTime(event.startDateTime).timeOnly}
+                    {formatDateTime(event.startDateTime).dateOnly} -{" "}
+                    {formatDateTime(event.startDateTime).timeOnly}
                     {" t"}
                   </p>
                   <p>
                     {"o "}
-                    {formatDateTime(event.endDateTime).dateOnly} - {formatDateTime(event.endDateTime).timeOnly}
+                    {formatDateTime(event.endDateTime).dateOnly} -{" "}
+                    {formatDateTime(event.endDateTime).timeOnly}
                   </p>
                 </div>
               </div>
@@ -89,7 +92,7 @@ const EventDetails = async ({
               <p className="p-bold-20 text-grey-600">What You'll Learn:</p>
               <p className="p-medium-16 lg:p-regular-18">{event.description}</p>
               <p className="p-medium-16 lg:p-regular-18 truncate text-primary-500 underline">
-                {event.url}
+                <Link href={event.url}>{event.url}</Link>
               </p>
             </div>
           </div>
@@ -99,9 +102,9 @@ const EventDetails = async ({
       {/* EVENTS with the same category */}
 
       <section className="wrapper my-8 flex flex-col gap-8 md:gap-12">
-      <h2 className="h2-bold">Related Events</h2>
+        <h2 className="h2-bold">Related Events</h2>
 
-      <Collection 
+        <Collection
           data={relatedEvents?.data}
           emptyTitle="No Events Found"
           emptyStateSubtext="Come back later"
