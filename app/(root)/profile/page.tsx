@@ -16,6 +16,7 @@ const ProfilePage = async ({ searchParams }: SearchParamProps) => {
   const eventsPage = Number(searchParams?.eventsPage) || 1;
 
   const orders = await getOrdersByUser({ userId, page: ordersPage})
+  // the above line is giving orders but you have to display events in my tickets section so below line is giving events based on aboce order
   const orderedEvents = orders?.data.map((order: IOrder) => order.event) || [];
 
   const organizedEvents = await getEventsByUser({ userId, page: eventsPage })

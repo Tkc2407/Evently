@@ -16,6 +16,8 @@ import { ObjectId } from "mongodb";
 import User from "../database/models/user.model";
 
 export const checkoutOrder = async (order: CheckoutOrderParams) => {
+  // Below code from stripe checkout
+  
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
   const price = order.isFree ? 0 : Number(order.price) * 100;
@@ -65,7 +67,7 @@ export const createOrder = async (order: CreateOrderParams) => {
   }
 };
 
-// GET ORDERS BY EVENT
+// GET ORDERS BY EVENT(when organsier(logged in user) want to see how many events he has organsized)
 export async function getOrdersByEvent({
   searchString,
   eventId,
@@ -127,7 +129,7 @@ export async function getOrdersByEvent({
   }
 }
 
-// GET ORDERS BY USER
+// GET ORDERS BY USER(tickets specific user(logged in user) has bought)
 export async function getOrdersByUser({
   userId,
   limit = 3,

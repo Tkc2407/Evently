@@ -2,6 +2,8 @@ import stripe from 'stripe'
 import { NextResponse } from 'next/server'
 import { createOrder } from '@/lib/actions/order.actions'
 
+// Below code from stripe webhook
+
 export async function POST(request: Request) {
   const body = await request.text()
 
